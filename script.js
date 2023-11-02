@@ -18,10 +18,12 @@ document.querySelector('.again').addEventListener('click', function () {
     secretNumber = parseInt(Math.random() * 20 + 1);
     console.log(secretNumber);
     score = 20;
+    // document.querySelector('.message').textContent = 'Start guessing...';
     document.querySelector('.number').textContent = '?';
     document.querySelector('body').style.backgroundColor = '#222';
     document.querySelector('.number').style.width = '15rem';
     document.querySelector('.guess').value = '';
+    document.querySelector('.score').textContent = score;
 })
 
 document.querySelector('.check').addEventListener('click', function () {
@@ -35,19 +37,14 @@ document.querySelector('.check').addEventListener('click', function () {
         document.querySelector('.number').style.width = '30rem';
         document.querySelector('.message').textContent = 'You are win 🐣';
         document.querySelector('.number').textContent = secretNumber;
-    } else if (guess > secretNumber) {
-        if (score > 0) {
-            document.querySelector('.message').textContent = 'Too high 🐣';
-            score--;
-            document.querySelector('.score').textContent = score;
-        } else {
-            document.querySelector('.message').textContent = 'You are lost 🐣';
-            document.querySelector('body').style.backgroundColor = 'red';
+        let currentScore = document.querySelector('.highscore').textContent;
+        if(currentScore < score){
+            document.querySelector('.highscore').textContent = score;
         }
-
-    } else if (guess < secretNumber) {
-        if (score > 0) {
-            document.querySelector('.message').textContent = 'Too low 🐣';
+    } else if(guess!==secretNumber){
+        if(score > 0)
+        {
+            document.querySelector('.message').textContent = guess > secretNumber ? 'Too High' : 'Too Low';
             score--;
             document.querySelector('.score').textContent = score;
         } else {
@@ -55,4 +52,4 @@ document.querySelector('.check').addEventListener('click', function () {
             document.querySelector('body').style.backgroundColor = 'red';
         }
     }
-})
+}) 
